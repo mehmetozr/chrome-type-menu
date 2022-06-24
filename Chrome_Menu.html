@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chrome Style Menu</title>
+    <link rel="shortcut icon" href="#" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!-- #region mo_Chrome_Menu CSS Start-->
+    <style>
+        .mo__chrome__container {
+            font-family: 'Roboto', sans-serif;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            width: 100%;
+        }
+
+        .mo__chrome__tab-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            height: 40px;
+            flex: 1;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .mo__chrome__tab-container_active {
+            background-color: #343a40;
+        }
+
+        .mo__chrome__tab {
+            background-color: #343a40;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mo__chrome__tab_active {
+            background-color: white;
+            color: #343a40;
+            border-radius: 8px 8px 0 0;
+            border-top: 1px solid #343a40;
+        }
+
+        .mo__chrome__tab__left_active {
+            border-bottom-right-radius: 8px;
+        }
+
+        .mo__chrome__tab__right_active {
+            border-bottom-left-radius: 8px;
+        }
+
+        .mo__chrome_side {
+            width: 10px;
+            height: 40px;
+            background-color: white;
+        }
+    </style>
+    <!-- #endregion -->
+</head>
+
+<body>
+    <div class="col-md-12">
+        <div class="mo__chrome__container">
+
+            <div class="mo__chrome__tab ">Homepage</div>
+            <div class="mo__chrome__tab ">About</div>
+            <div class="mo__chrome__tab">Products</div>
+            <div class="mo__chrome__tab">Communication</div>
+            <div class="mo__chrome__tab">Corporate</div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        $(document).ready(function() {
+            /* #region  initalize */
+            $.each($(".mo__chrome__container").find(".mo__chrome__tab"), function(indexInArray, item) {
+                return (item.outerHTML = '<div class="mo__chrome__tab-container">' + item.outerHTML + "</div>")
+            })
+
+            $(".mo__chrome__container").prepend('<div class="mo__chrome_side"> <div class="mo__chrome__tab "></div></div>')
+            $(".mo__chrome__container").append('<div class="mo__chrome_side"> <div class="mo__chrome__tab "></div></div>')
+
+            setChromeActivities($(".mo__chrome__container").find(".mo__chrome__tab").eq(1))
+
+            /* #endregion */
+            /* #region  On Click */
+            $(".mo__chrome__tab").on("click", function() {
+                clearChromeActives();
+                setChromeActivities($(this));
+            });
+
+            /* #endregion */
+            /* #region  Functions */
+            function clearChromeActives() {
+                $(".mo__chrome__container div").removeClass("mo__chrome__tab_active");
+                $(".mo__chrome__container div").removeClass("mo__chrome__tab-container_active");
+                $(".mo__chrome__container div").removeClass("mo__chrome__tab__left_active");
+                $(".mo__chrome__container div").removeClass("mo__chrome__tab__right_active")
+            }
+
+            function setChromeActivities(item) {
+
+                let currentItem = item;
+
+                $(currentItem).addClass("mo__chrome__tab_active");
+                $(currentItem).parent().addClass("mo__chrome__tab-container_active");
+                $(currentItem).parent().prev().children().addClass("mo__chrome__tab__left_active");
+                $(currentItem).parent().next().children().addClass("mo__chrome__tab__right_active ");
+
+            }
+            /* #endregion */
+        })
+    </script>
+
+</body></html>
